@@ -1,0 +1,29 @@
+{
+    "name": "robsonala/php-complex-parser",
+    "description": "PHP Complex CSV parser",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Robson Alviani",
+            "email": "robsonala@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "jabranr/csv-parser": "2.*",
+        "symfony/property-access": "*",
+        "symfony/serializer": "*"
+    },
+    "require-dev": {
+        "codeception/codeception": "*",
+        "phpunit/phpunit": "7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPComplexParser\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/codecept run"
+    }
+}
