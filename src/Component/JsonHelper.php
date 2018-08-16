@@ -11,9 +11,17 @@ class JsonHelper
 
     public static function objectToJson(object $obj)
     {
-        $serializer = new Serializer([new ObjectNormalizer(null, new CamelCaseToSnakeCaseNameConverter())], [new JsonEncoder()]);
+        //$serializer = new Serializer([new ObjectNormalizer(null, new CamelCaseToSnakeCaseNameConverter())], [new JsonEncoder()]);
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
 
         return $serializer->serialize($obj, 'json');
+    }
+
+    public static function jsonToObject(string $value, string $className)
+    {
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+
+        return $serializer->deserialize($value, $className, 'json');
     }
 
 }

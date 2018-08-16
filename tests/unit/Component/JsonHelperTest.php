@@ -3,6 +3,18 @@ namespace Component;
 
 use PHPComplexParser\Component\JsonHelper;
 
+class MyTest
+{
+    public $LoremIpsum;
+    public $DolorSit;
+
+    public function __construct()
+    {
+        $this->LoremIpsum = uniqid();
+        $this->DolorSit = uniqid();
+    }
+}
+
 class JsonHelperTest extends \Codeception\Test\Unit
 {
     /**
@@ -20,11 +32,17 @@ class JsonHelperTest extends \Codeception\Test\Unit
 
     public function testObjectToJson()
     {   
-        $json = json_encode((object)['lorem_ipsum' => 123, 'dolor_sit' => 'ipsum']);
+        $obj = new MyTest();
+        $json = json_encode((object)['LoremIpsum' => $obj->LoremIpsum, 'DolorSit' => $obj->DolorSit]);
 
-        $this->tester->assertEquals($json, JsonHelper::objectToJson(new class {
-            public $LoremIpsum = 123;
-            public $DolorSit = 'ipsum';
-        }));
+        $this->tester->assertEquals($json, JsonHelper::objectToJson($obj));
+    }
+
+    public function testJsonToObject()
+    {
+        $obj = new MyTest();
+        $json = json_encode((object)['LoremIpsum' => $obj->LoremIpsum, 'DolorSit' => $obj->DolorSit]);
+
+        $this->tester->assertEquals($obj, JsonHelper::jsonToObject($json, MyTest::class));
     }
 }
