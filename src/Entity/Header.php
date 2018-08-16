@@ -36,4 +36,19 @@ class Header extends BaseEntity
     {
         return $this->Position;
     }
+
+    public function validate()
+    {
+        if (!isset($this->Global))
+        {
+            return false;
+        }
+        
+        if ($this->isGlobal() && !isset($this->Position))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

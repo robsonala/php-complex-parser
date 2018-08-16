@@ -6,6 +6,8 @@ use PHPComplexParser\Entity\Header;
 use PHPComplexParser\Entity\Position;
 use PHPComplexParser\Entity\PositionHeader;
 
+use PHPComplexParser\Component\JsonHelper;
+
 class HeaderTest extends \Codeception\Test\Unit
 {
     /**
@@ -66,5 +68,46 @@ class HeaderTest extends \Codeception\Test\Unit
         } catch (\Error $e) {
             throw new \Exception();
         }
+    }
+
+    public function testObjectToJson()
+    {   
+        $obj = new Header();
+        $obj->setGlobal(true);
+
+        $json = json_encode((object)['Global' => $obj->isGlobal()]);
+
+        $this->tester->assertEquals($json, JsonHelper::objectToJson($obj));
+    }
+    
+    public function testJsonToObject()
+    {   
+        $obj = new Header();
+        $obj->setGlobal(true);
+
+        $json = json_encode((object)['Global' => $obj->isGlobal()]);
+
+        $this->tester->assertEquals($obj, JsonHelper::jsonToObject($json, Header::class));
+    }
+
+    public function testValidate()
+    {
+        $obj = new Header();
+
+        // INVALID
+        $this->tester->assertFalse($obj->validate());
+
+        // INVALID [Missing Position when Global is true]
+        $obj->setGlobal(true);
+        $this->tester->assertFalse($obj->validate());
+
+        // VALID
+        $obj->setGlobal(false);
+        $this->tester->assertTrue($obj->validate());
+
+        // VALID
+        $obj->setGlobal(true);
+        $obj->setPosition(new PositionHeader());
+        $this->tester->assertTrue($obj->validate());
     }
 }

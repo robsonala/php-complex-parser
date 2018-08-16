@@ -19,4 +19,14 @@ class General extends BaseEntity
     {
         return $this->IgnoreLinesBegin;
     }
+
+    public function validate()
+    {
+        if (!isset($this->IgnoreLinesBegin))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

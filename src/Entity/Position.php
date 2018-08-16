@@ -19,4 +19,14 @@ class Position extends BaseEntity
     {
         return $this->Line;
     }
+
+    public function validate()
+    {
+        if (!isset($this->Line))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
