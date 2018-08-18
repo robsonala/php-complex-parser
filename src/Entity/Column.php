@@ -2,6 +2,7 @@
 namespace PHPComplexParser\Entity;
 
 use PHPComplexParser\Entity\Enum\ColumnType;
+use PHPComplexParser\Component\JsonHelper;
 
 class Column extends BaseEntity
 {
@@ -54,23 +55,14 @@ class Column extends BaseEntity
     {
         if (is_array($obj))
         {
-            $data = $obj;
-            $obj = new PositionColumn();
-            
-            foreach ($data as $key=>$value)
-            {
-                $method = 'set' . $key;
-                if (method_exists ($obj, $method))
-                {
-                    call_user_func([$obj, $method], $value);
-                }
-            }
+            $obj = JsonHelper::jsonToObject(json_encode($obj), PositionColumn::class);
         }
 
         if (!($obj instanceof PositionColumn))
         {
             throw new \TypeError('setPosition should receive PositionColumn');
         }
+        
         $this->Position = $obj;
     }
 

@@ -1,6 +1,8 @@
 <?php
 namespace PHPComplexParser\Entity;
 
+use PHPComplexParser\Component\JsonHelper;
+
 class Header extends BaseEntity
 {
     /**
@@ -31,17 +33,7 @@ class Header extends BaseEntity
     {
         if (is_array($obj))
         {
-            $data = $obj;
-            $obj = new PositionHeader();
-            
-            foreach ($data as $key=>$value)
-            {
-                $method = 'set' . $key;
-                if (method_exists ($obj, $method))
-                {
-                    call_user_func([$obj, $method], $value);
-                }
-            }
+            $obj = JsonHelper::jsonToObject(json_encode($obj), PositionHeader::class);
         }
 
         if (!($obj instanceof PositionHeader))
