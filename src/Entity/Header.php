@@ -27,8 +27,28 @@ class Header extends BaseEntity
         return $this->Global;
     }
 
-    public function setPosition(PositionHeader $obj)
+    public function setPosition($obj)
     {
+        if (is_array($obj))
+        {
+            $data = $obj;
+            $obj = new PositionHeader();
+            
+            foreach ($data as $key=>$value)
+            {
+                $method = 'set' . $key;
+                if (method_exists ($obj, $method))
+                {
+                    call_user_func([$obj, $method], $value);
+                }
+            }
+        }
+
+        if (!($obj instanceof PositionHeader))
+        {
+            throw new \TypeError('setPosition should receive PositionHeader');
+        }
+
         $this->Position = $obj;
     }
 

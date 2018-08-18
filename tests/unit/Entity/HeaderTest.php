@@ -87,12 +87,12 @@ class HeaderTest extends \Codeception\Test\Unit
     }
 
     public function testGetJsonValid()
-    {   
-        $obj = new Header();
-        $obj->setGlobal(true);
-
+    {
         $pos = new PositionHeader();
         $pos->setLine(rand(1,9));
+
+        $obj = new Header();
+        $obj->setGlobal(true);
         $obj->setPosition($pos);
 
         $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(null))]);
@@ -110,15 +110,20 @@ class HeaderTest extends \Codeception\Test\Unit
     
     public function testSetJsonValid()
     {
-        $obj = new Header();
-        $obj->setGlobal(false);
+        $pos = new PositionHeader();
+        $pos->setLine(rand(1,9));
 
-        $json = json_encode((object)['Global' => $obj->isGlobal()]);
+        $obj = new Header();
+        $obj->setGlobal(true);
+        $obj->setPosition($pos);
+
+        $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(null))]);
 
         $newObj = new Header();
 
         $this->tester->assertEquals($obj, $newObj->setJson($json));
         $this->tester->assertEquals($obj->isGlobal(), $newObj->isGlobal());
+        $this->tester->assertEquals($obj->getPosition(), $newObj->getPosition());
     }
 
     /**

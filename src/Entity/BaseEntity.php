@@ -14,7 +14,7 @@ abstract class BaseEntity implements IEntity
     {
         if (!$this->validate())
         {
-            throw new \Exception('This Entity is not valid');
+            throw new \Exception('This Entity formation is not valid');
         }
         
         return JsonHelper::objectToJson($this);
@@ -33,7 +33,7 @@ abstract class BaseEntity implements IEntity
         
         if (!$this->validate())
         {
-            throw new \Exception('This Entity is not valid');
+            throw new \Exception('This Entity formation is not valid');
         }
 
         return $this;
