@@ -3,7 +3,7 @@ namespace PHPComplexParser\Entity;
 
 use PHPComplexParser\Component\JsonHelper;
 
-abstract class BaseEntity
+abstract class BaseEntity implements IEntity
 {
     public function validate()
     {
