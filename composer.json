@@ -11,6 +11,7 @@
     "require": {
         "php": ">=7.0",
         "jabranr/csv-parser": "2.*",
+        "myclabs/php-enum": "*",
         "symfony/property-access": "*",
         "symfony/serializer": "*"
     },

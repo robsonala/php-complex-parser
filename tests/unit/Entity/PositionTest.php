@@ -1,10 +1,7 @@
 <?php
 namespace Entity;
 
-use PHPComplexParser\Entity\BaseEntity;
-use PHPComplexParser\Entity\Position;
-
-use PHPComplexParser\Component\JsonHelper;
+use PHPComplexParser\Entity\{BaseEntity,Position};
 
 class PositionTest extends \Codeception\Test\Unit
 {
@@ -32,7 +29,7 @@ class PositionTest extends \Codeception\Test\Unit
         $this->tester->assertInstanceOf(BaseEntity::class, new Position);
     }
 
-    public function testLine()
+    public function testLineValid()
     {
         $num = rand(100,999);
 
@@ -41,24 +38,12 @@ class PositionTest extends \Codeception\Test\Unit
         $this->tester->assertEquals($num, $this->objEntity->getLine());
     }
 
-    public function testObjectToJson()
-    {   
-        $obj = new Position();
-        $obj->setLine(rand(1,10));
-
-        $json = json_encode((object)['Line' => $obj->getLine()]);
-
-        $this->tester->assertEquals($json, JsonHelper::objectToJson($obj));
-    }
-    
-    public function testJsonToObject()
-    {   
-        $obj = new Position();
-        $obj->setLine(rand(1,10));
-
-        $json = json_encode((object)['Line' => $obj->getLine()]);
-
-        $this->tester->assertEquals($obj, JsonHelper::jsonToObject($json, Position::class));
+    /**
+     * @expectedException \Exception
+     */
+    public function testLineInvalid()
+    {
+        $this->objEntity->setLine(-1);
     }
 
     public function testValidate()
@@ -71,5 +56,45 @@ class PositionTest extends \Codeception\Test\Unit
         // VALID
         $obj->setLine(rand(1,10));
         $this->tester->assertTrue($obj->validate());
+    }
+
+    public function testGetJsonValid()
+    {   
+        $obj = new Position();
+        $obj->setLine(rand(1,10));
+
+        $json = json_encode((object)['Line' => $obj->getLine()]);
+
+        $this->tester->assertEquals($json, $obj->getJson(null));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetJsonInvalid()
+    {   
+        (new Position())->getJson(null);
+    }
+    
+    public function testSetJsonValid()
+    {
+        $obj = new Position();
+        $obj->setLine(rand(1,10));
+
+        $json = json_encode((object)['Line' => $obj->getLine()]);
+
+        $newObj = new Position();
+
+        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj->getLine(), $newObj->getLine());
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testSetJsonInvalid()
+    {   
+        $obj = new Position();
+        $obj->setJson('{}');
     }
 }

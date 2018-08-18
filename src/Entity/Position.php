@@ -12,6 +12,11 @@ class Position extends BaseEntity
     
     public function setLine(int $value)
     {
+        if ($value < 0)
+        {
+            throw new \Exception('Invalid IgnoreLinesBegin');
+        }
+        
         $this->Line = $value;
     }
 

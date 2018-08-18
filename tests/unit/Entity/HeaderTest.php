@@ -1,12 +1,7 @@
 <?php
 namespace Entity;
 
-use PHPComplexParser\Entity\BaseEntity;
-use PHPComplexParser\Entity\Header;
-use PHPComplexParser\Entity\Position;
-use PHPComplexParser\Entity\PositionHeader;
-
-use PHPComplexParser\Component\JsonHelper;
+use PHPComplexParser\Entity\{BaseEntity,Header,Position,PositionHeader};
 
 class HeaderTest extends \Codeception\Test\Unit
 {
@@ -55,7 +50,7 @@ class HeaderTest extends \Codeception\Test\Unit
     /**
      * @expectedException \Exception
      */
-    public function testPositionInvalidValid()
+    public function testPositionInvalid()
     {
         $pos = new Position();
         $pos->setLine(rand(1,9));
@@ -68,26 +63,6 @@ class HeaderTest extends \Codeception\Test\Unit
         } catch (\Error $e) {
             throw new \Exception();
         }
-    }
-
-    public function testObjectToJson()
-    {   
-        $obj = new Header();
-        $obj->setGlobal(true);
-
-        $json = json_encode((object)['Global' => $obj->isGlobal()]);
-
-        $this->tester->assertEquals($json, JsonHelper::objectToJson($obj));
-    }
-    
-    public function testJsonToObject()
-    {   
-        $obj = new Header();
-        $obj->setGlobal(true);
-
-        $json = json_encode((object)['Global' => $obj->isGlobal()]);
-
-        $this->tester->assertEquals($obj, JsonHelper::jsonToObject($json, Header::class));
     }
 
     public function testValidate()
@@ -109,5 +84,49 @@ class HeaderTest extends \Codeception\Test\Unit
         $obj->setGlobal(true);
         $obj->setPosition(new PositionHeader());
         $this->tester->assertTrue($obj->validate());
+    }
+
+    public function testGetJsonValid()
+    {   
+        $obj = new Header();
+        $obj->setGlobal(true);
+
+        $pos = new PositionHeader();
+        $pos->setLine(rand(1,9));
+        $obj->setPosition($pos);
+
+        $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(null))]);
+
+        $this->tester->assertEquals($json, $obj->getJson(null));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetJsonInvalid()
+    {   
+        (new Header())->getJson(null);
+    }
+    
+    public function testSetJsonValid()
+    {
+        $obj = new Header();
+        $obj->setGlobal(false);
+
+        $json = json_encode((object)['Global' => $obj->isGlobal()]);
+
+        $newObj = new Header();
+
+        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj->isGlobal(), $newObj->isGlobal());
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testSetJsonInvalid()
+    {   
+        $obj = new Header();
+        $obj->setJson('{}');
     }
 }

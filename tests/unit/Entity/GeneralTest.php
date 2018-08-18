@@ -1,10 +1,7 @@
 <?php
 namespace Entity;
 
-use PHPComplexParser\Entity\BaseEntity;
-use PHPComplexParser\Entity\General;
-
-use PHPComplexParser\Component\JsonHelper;
+use PHPComplexParser\Entity\{BaseEntity, General};
 
 class GeneralTest extends \Codeception\Test\Unit
 {
@@ -32,32 +29,20 @@ class GeneralTest extends \Codeception\Test\Unit
         $this->tester->assertInstanceOf(BaseEntity::class, new General);
     }
 
-    public function testIgnoreLinesBegin()
+    /**
+     * @expectedException \Exception
+     */
+    public function testIgnoreLinesBeginInvalid()
+    {
+        $this->objEntity->setIgnoreLinesBegin(-1);
+    }
+
+    public function testIgnoreLinesBeginValid()
     {
         $num = rand(100,999);
         $this->objEntity->setIgnoreLinesBegin($num);
 
         $this->tester->assertEquals($num, $this->objEntity->getIgnoreLinesBegin());
-    }
-
-    public function testObjectToJson()
-    {   
-        $obj = new General();
-        $obj->setIgnoreLinesBegin(rand(1,10));
-
-        $json = json_encode((object)['IgnoreLinesBegin' => $obj->getIgnoreLinesBegin()]);
-
-        $this->tester->assertEquals($json, JsonHelper::objectToJson($obj));
-    }
-    
-    public function testJsonToObject()
-    {   
-        $obj = new General();
-        $obj->setIgnoreLinesBegin(rand(1,10));
-
-        $json = json_encode((object)['IgnoreLinesBegin' => $obj->getIgnoreLinesBegin()]);
-
-        $this->tester->assertEquals($obj, JsonHelper::jsonToObject($json, General::class));
     }
 
     public function testValidate()
@@ -71,4 +56,45 @@ class GeneralTest extends \Codeception\Test\Unit
         $obj->setIgnoreLinesBegin(rand(1,10));
         $this->tester->assertTrue($obj->validate());
     }
+
+    public function testGetJsonValid()
+    {   
+        $obj = new General();
+        $obj->setIgnoreLinesBegin(rand(1,10));
+
+        $json = json_encode((object)['IgnoreLinesBegin' => $obj->getIgnoreLinesBegin()]);
+
+        $this->tester->assertEquals($json, $obj->getJson(null));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetJsonInvalid()
+    {   
+        (new General())->getJson(null);
+    }
+    
+    public function testSetJsonValid()
+    {
+        $obj = new General();
+        $obj->setIgnoreLinesBegin(rand(1,10));
+
+        $json = json_encode((object)['IgnoreLinesBegin' => $obj->getIgnoreLinesBegin()]);
+
+        $newObj = new General();
+
+        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj->getIgnoreLinesBegin(), $newObj->getIgnoreLinesBegin());
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testSetJsonInvalid()
+    {   
+        $obj = new General();
+        $obj->setJson('{}');
+    }
+
 }

@@ -12,6 +12,11 @@ class General extends BaseEntity
 
     public function setIgnoreLinesBegin(int $value)
     {
+        if ($value < 0)
+        {
+            throw new \Exception('Invalid IgnoreLinesBegin');
+        }
+
         $this->IgnoreLinesBegin = $value;
     }
 
