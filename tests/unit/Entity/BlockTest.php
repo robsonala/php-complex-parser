@@ -72,9 +72,10 @@ class BlockTest extends \Codeception\Test\Unit
 
     public function testBreakSearch()
     {
-        $this->objEntity->setBreakSearch('loremipsum');
+        $str = uniqid();
+        $this->objEntity->setBreakSearch($str);
 
-        $this->tester->assertEquals('loremipsum', $this->objEntity->getBreakSearch());
+        $this->tester->assertEquals($str, $this->objEntity->getBreakSearch());
     }
 
     public function testBreakSearchColumnValid()
@@ -117,7 +118,7 @@ class BlockTest extends \Codeception\Test\Unit
         // VALID
         $obj = new Block();
         $obj->setBreak(BlockBreak::MatchLastLine()->getValue());
-        $obj->setBreakSearch('loremipsum');
+        $obj->setBreakSearch(uniqid());
         $obj->setBreakSearchColumn(0);
         $this->tester->assertTrue($obj->validate());
     }

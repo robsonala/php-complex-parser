@@ -14,7 +14,7 @@ class Position extends BaseEntity
     {
         if ($value < 0)
         {
-            throw new \Exception('Invalid IgnoreLinesBegin');
+            throw new \Exception('Invalid Line');
         }
         
         $this->Line = $value;
