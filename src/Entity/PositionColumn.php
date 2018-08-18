@@ -1,7 +1,7 @@
 <?php
 namespace PHPComplexParser\Entity;
 
-class PositionColumns extends Position
+class PositionColumn extends Position
 {
     /**
      * Column Position
@@ -96,5 +96,23 @@ class PositionColumns extends Position
     public function getRange()
     {
         return $this->Range;
+    }
+
+    public function validate()
+    {
+        if (isset($this->Line) && isset($this->Column))
+        {
+            return true;
+        }
+        if (isset($this->Search) && isset($this->SearchColumn) && isset($this->HeaderMatch))
+        {
+            return true;
+        } 
+        if (isset($this->Search) && isset($this->SearchColumn) && isset($this->Range))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
