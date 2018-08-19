@@ -16,6 +16,11 @@ class Columns implements IRepository
         $this->Columns = [];
     }
 
+    public function count() : int
+    {
+        return count($this->Columns);
+    }
+
     public function getAll() : array
     {
         return $this->Columns;

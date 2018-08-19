@@ -5,6 +5,7 @@ use PHPComplexParser\Entity\BaseEntity;
 
 interface IRepository
 {
+    public function count() : int;
     public function getAll() : array;
     public function find($searchTerm) : ?BaseEntity;
     public function add(BaseEntity $item) : bool;

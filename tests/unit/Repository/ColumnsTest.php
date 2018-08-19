@@ -75,6 +75,17 @@ class ColumnsTest extends \Codeception\Test\Unit
         $this->tester->assertEquals([$col], $repo->getAll());
     }
 
+    public function testCount()
+    {
+        $repo = new Columns();
+        
+        $col = $this->genValidColumn();
+
+        $repo->add($col);
+
+        $this->tester->assertEquals(1, $repo->count());
+    }
+
     public function testExists()
     {
         $repo = new Columns();
