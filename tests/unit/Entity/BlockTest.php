@@ -125,12 +125,16 @@ class BlockTest extends \Codeception\Test\Unit
 
     public function testGetJsonValid()
     {   
+        // VALIDATE ON
         $obj = new Block();
         $obj->setSize(rand(1,10));
 
         $json = json_encode((object)['Size' => $obj->getSize()]);
 
-        $this->tester->assertEquals($json, $obj->getJson(null));
+        $this->tester->assertEquals($json, $obj->getJson(true));
+
+        // VALIDATE OFF
+        (new Block())->getJson(false);
     }
 
     /**
@@ -138,11 +142,12 @@ class BlockTest extends \Codeception\Test\Unit
      */
     public function testGetJsonInvalid()
     {   
-        (new Block())->getJson(null);
+        (new Block())->getJson(true);
     }
     
     public function testSetJsonValid()
     {
+        // VALIDATE ON
         $obj = new Block();
         $obj->setSize(rand(1,10));
 
@@ -150,8 +155,11 @@ class BlockTest extends \Codeception\Test\Unit
 
         $newObj = new Block();
 
-        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj, $newObj->setJson($json, true));
         $this->tester->assertEquals($obj->getSize(), $newObj->getSize());
+
+        // VALIDATE OFF
+        (new Block())->setJson('{}', false);
     }
 
     /**
@@ -159,7 +167,6 @@ class BlockTest extends \Codeception\Test\Unit
      */
     public function testSetJsonInvalid()
     {   
-        $obj = new Block();
-        $obj->setJson('{}');
+        (new Block())->setJson('{}', true);
     }
 }

@@ -10,9 +10,9 @@ abstract class BaseEntity implements IEntity
         throw new \RuntimeException("Not implemented");
     }
 
-    public function getJson($_null)
+    public function getJson(bool $runValidate)
     {
-        if (!$this->validate())
+        if ($runValidate && !$this->validate())
         {
             throw new \Exception('This Entity formation is not valid');
         }
@@ -20,7 +20,7 @@ abstract class BaseEntity implements IEntity
         return JsonHelper::objectToJson($this);
     }
 
-    public function setJson(string $json)
+    public function setJson(string $json, bool $runValidate)
     {
         $obj = JsonHelper::jsonToObject($json, get_class($this));
         $reflection = new \ReflectionClass($obj);
@@ -31,7 +31,7 @@ abstract class BaseEntity implements IEntity
             $this->{$property->getName()} = $property->getValue($obj);
         }
         
-        if (!$this->validate())
+        if ($runValidate && !$this->validate())
         {
             throw new \Exception('This Entity formation is not valid');
         }

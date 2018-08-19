@@ -59,12 +59,16 @@ class GeneralTest extends \Codeception\Test\Unit
 
     public function testGetJsonValid()
     {   
+        // VALIDATE ON
         $obj = new General();
         $obj->setIgnoreLinesBegin(rand(1,10));
 
         $json = json_encode((object)['IgnoreLinesBegin' => $obj->getIgnoreLinesBegin()]);
 
-        $this->tester->assertEquals($json, $obj->getJson(null));
+        $this->tester->assertEquals($json, $obj->getJson(true));
+
+        // VALIDATE OFF
+        (new General())->getJson(false);
     }
 
     /**
@@ -72,11 +76,12 @@ class GeneralTest extends \Codeception\Test\Unit
      */
     public function testGetJsonInvalid()
     {   
-        (new General())->getJson(null);
+        (new General())->getJson(true);
     }
     
     public function testSetJsonValid()
     {
+        // VALIDATE ON
         $obj = new General();
         $obj->setIgnoreLinesBegin(rand(1,10));
 
@@ -84,8 +89,11 @@ class GeneralTest extends \Codeception\Test\Unit
 
         $newObj = new General();
 
-        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj, $newObj->setJson($json, true));
         $this->tester->assertEquals($obj->getIgnoreLinesBegin(), $newObj->getIgnoreLinesBegin());
+
+        // VALIDATE OFF
+        (new General())->setJson('{}', false);
     }
 
     /**
@@ -93,8 +101,7 @@ class GeneralTest extends \Codeception\Test\Unit
      */
     public function testSetJsonInvalid()
     {   
-        $obj = new General();
-        $obj->setJson('{}');
+        (new General())->setJson('{}', true);
     }
 
 }

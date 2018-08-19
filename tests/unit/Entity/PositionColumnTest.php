@@ -145,13 +145,17 @@ class PositionColumnsTest extends \Codeception\Test\Unit
 
     public function testGetJsonValid()
     {   
+        // VALIDATE ON
         $obj = new PositionColumn();
         $obj->setColumn(rand(1,10));
         $obj->setLine(rand(1,10));
 
         $json = json_encode((object)['Column' => $obj->getColumn(), 'Line' => $obj->getLine()]);
 
-        $this->tester->assertEquals($json, $obj->getJson(null));
+        $this->tester->assertEquals($json, $obj->getJson(true));
+
+        // VALIDATE OFF
+        (new PositionColumn())->getJson(false);
     }
 
     /**
@@ -159,11 +163,12 @@ class PositionColumnsTest extends \Codeception\Test\Unit
      */
     public function testGetJsonInvalid()
     {   
-        (new PositionColumn())->getJson(null);
+        (new PositionColumn())->getJson(true);
     }
 
     public function testSetJsonValid()
     {
+        // VALIDATE ON
         $obj = new PositionColumn();
         $obj->setColumn(rand(1,10));
         $obj->setLine(rand(1,10));
@@ -172,9 +177,12 @@ class PositionColumnsTest extends \Codeception\Test\Unit
 
         $newObj = new PositionColumn();
 
-        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj, $newObj->setJson($json, true));
         $this->tester->assertEquals($obj->getLine(), $newObj->getLine());
         $this->tester->assertEquals($obj->getColumn(), $newObj->getColumn());
+
+        // VALIDATE OFF
+        (new PositionColumn())->setJson('{}', false);
     }
 
     /**
@@ -182,8 +190,7 @@ class PositionColumnsTest extends \Codeception\Test\Unit
      */
     public function testSetJsonInvalid()
     {   
-        $obj = new PositionColumn();
-        $obj->setJson('{}');
+        (new PositionColumn())->setJson('{}', true);
     }
 
 }

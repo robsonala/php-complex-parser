@@ -60,12 +60,16 @@ class PositionTest extends \Codeception\Test\Unit
 
     public function testGetJsonValid()
     {   
+        // VALIDATE ON
         $obj = new Position();
         $obj->setLine(rand(1,10));
 
         $json = json_encode((object)['Line' => $obj->getLine()]);
 
-        $this->tester->assertEquals($json, $obj->getJson(null));
+        $this->tester->assertEquals($json, $obj->getJson(true));
+
+        // VALIDATE OFF
+        (new Position())->getJson(false);
     }
 
     /**
@@ -73,11 +77,12 @@ class PositionTest extends \Codeception\Test\Unit
      */
     public function testGetJsonInvalid()
     {   
-        (new Position())->getJson(null);
+        (new Position())->getJson(true);
     }
     
     public function testSetJsonValid()
     {
+        // VALIDATE ON
         $obj = new Position();
         $obj->setLine(rand(1,10));
 
@@ -85,8 +90,11 @@ class PositionTest extends \Codeception\Test\Unit
 
         $newObj = new Position();
 
-        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj, $newObj->setJson($json, true));
         $this->tester->assertEquals($obj->getLine(), $newObj->getLine());
+
+        // VALIDATE OFF
+        (new Position())->setJson('{}', false);
     }
 
     /**
@@ -94,7 +102,6 @@ class PositionTest extends \Codeception\Test\Unit
      */
     public function testSetJsonInvalid()
     {   
-        $obj = new Position();
-        $obj->setJson('{}');
+        (new Position())->setJson('{}', true);
     }
 }

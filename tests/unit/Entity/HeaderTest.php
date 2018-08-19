@@ -88,6 +88,7 @@ class HeaderTest extends \Codeception\Test\Unit
 
     public function testGetJsonValid()
     {
+        // VALIDATE ON
         $pos = new PositionHeader();
         $pos->setLine(rand(1,9));
 
@@ -95,9 +96,12 @@ class HeaderTest extends \Codeception\Test\Unit
         $obj->setGlobal(true);
         $obj->setPosition($pos);
 
-        $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(null))]);
+        $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(true))]);
 
-        $this->tester->assertEquals($json, $obj->getJson(null));
+        $this->tester->assertEquals($json, $obj->getJson(true));
+
+        // VALIDATE OFF
+        (new Header())->getJson(false);
     }
 
     /**
@@ -105,11 +109,12 @@ class HeaderTest extends \Codeception\Test\Unit
      */
     public function testGetJsonInvalid()
     {   
-        (new Header())->getJson(null);
+        (new Header())->getJson(true);
     }
     
     public function testSetJsonValid()
     {
+        // VALIDATE ON
         $pos = new PositionHeader();
         $pos->setLine(rand(1,9));
 
@@ -117,13 +122,16 @@ class HeaderTest extends \Codeception\Test\Unit
         $obj->setGlobal(true);
         $obj->setPosition($pos);
 
-        $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(null))]);
+        $json = json_encode((object)['Global' => $obj->isGlobal(), 'Position' => json_decode($pos->getJson(true))]);
 
         $newObj = new Header();
 
-        $this->tester->assertEquals($obj, $newObj->setJson($json));
+        $this->tester->assertEquals($obj, $newObj->setJson($json, true));
         $this->tester->assertEquals($obj->isGlobal(), $newObj->isGlobal());
         $this->tester->assertEquals($obj->getPosition(), $newObj->getPosition());
+
+        // VALIDATE OFF
+        (new Header())->setJson('{}', false);
     }
 
     /**
@@ -131,7 +139,6 @@ class HeaderTest extends \Codeception\Test\Unit
      */
     public function testSetJsonInvalid()
     {   
-        $obj = new Header();
-        $obj->setJson('{}');
+        (new Header())->setJson('{}', true);
     }
 }
