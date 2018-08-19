@@ -45,6 +45,14 @@ class ColumnTest extends \Codeception\Test\Unit
         $this->tester->fail('Expected Expcetion');
     }
 
+    public function testName()
+    {
+        $str = uniqid();
+        $this->objEntity->setName($str);
+
+        $this->tester->assertEquals($str, $this->objEntity->getName());
+    }
+
     public function testKeepHeader()
     {
         $this->objEntity->setKeepHeader(true);

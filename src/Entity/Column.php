@@ -14,6 +14,13 @@ class Column extends BaseEntity
     protected $Type;
 
     /**
+     * Name used on result out
+     * 
+     * @var string
+     */ 
+    protected $Name;
+
+    /**
      * TRUE - Show Original header on result out
      * FALSE - Don't keep original header
      * 
@@ -39,6 +46,16 @@ class Column extends BaseEntity
     public function getType()
     {
         return $this->Type;
+    }
+
+    public function setName(string $value)
+    {
+        $this->Name = $value;
+    }
+
+    public function getName()
+    {
+        return $this->Name;
     }
 
     public function setKeepHeader(bool $value)
