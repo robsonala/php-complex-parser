@@ -56,7 +56,7 @@ class Header extends BaseEntity
             return false;
         }
         
-        if ($this->isGlobal() && !isset($this->Position))
+        if (!isset($this->Position))
         {
             return false;
         }

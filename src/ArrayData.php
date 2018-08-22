@@ -2,7 +2,7 @@
 namespace PHPComplexParser;
 
 use PHPComplexParser\Component\ArrayChunker;
-use PHPComplexParser\Entity\Block;
+use PHPComplexParser\Entity\{Block, Header};
 use PHPComplexParser\Entity\Enum\BlockBreak;
 
 class ArrayData
@@ -24,6 +24,13 @@ class ArrayData
     public function setData(array $data) : bool
     {
         $this->Data = $data;
+
+        return true;
+    }
+
+    public function unsetData() : bool
+    {
+        unset($this->Data);
 
         return true;
     }
@@ -76,8 +83,54 @@ class ArrayData
         return !!$this->Chunks;
     }
 
-    public function getChunks()
+    public function getChunks() : array
     {
         return $this->Chunks;
+    }
+
+    public function getHeader(Header $header, ?int $blockIndexPosition = null)
+    {
+        if (!isset($this->Data))
+        {
+            throw new \Exception('Data has not been set');
+        }
+        if (!$header->validate())
+        {
+            throw new \Exception('Invalid Header entity');
+        }
+
+        $searchableData = [];
+
+        if ($header->isGlobal())
+        {
+            if (!$this->Data)
+            {
+                throw new \Exception('You must set data before request header');
+            }
+
+            $searchableData = &$this->Data;
+        }
+
+        if (!$header->isGlobal())
+        {
+            if (!$this->Chunks)
+            {
+                throw new \Exception('You must create data chunks before request header');
+            }
+            if (!isset($this->Chunks[$blockIndexPosition]))
+            {
+                throw new \Exception('Block not found');
+            }
+
+            $searchableData = &$this->Chunks[$blockIndexPosition];
+        }
+
+        if (!isset($searchableData[$header->getPosition()->getLine()]))
+        {
+            throw new \Exception('Line not found');
+        }
+
+        return $searchableData[$header->getPosition()->getLine()];
+
     }
 }

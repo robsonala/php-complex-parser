@@ -2,7 +2,7 @@
 use PHPComplexParser\ArrayData;
 
 use PHPComplexParser\Entity\Enum\BlockBreak;
-use PHPComplexParser\Entity\Block;
+use PHPComplexParser\Entity\{Block, Header, PositionHeader};
 
 class ArrayDataTest extends \Codeception\Test\Unit
 {
@@ -166,5 +166,86 @@ class ArrayDataTest extends \Codeception\Test\Unit
         $obj = new ArrayData();
         $obj->setData($data);
         $obj->createChunks($block);
+    }
+
+    public function testUnsetData()
+    {
+        $data = array_merge($this->genAlleatoryBlock(), $this->genAlleatoryBlock());
+
+        $obj = new ArrayData();
+        $obj->setData($data);
+
+        $this->tester->assertTrue($obj->unsetData());
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetHeaderInvalidMain()
+    {
+        $header = new Header();
+        $header->setGlobal(true);
+
+        $obj = new ArrayData();
+        $obj->setData(array_merge($this->genAlleatoryBlock(), $this->genAlleatoryBlock()));
+
+        $obj->getHeader($header);
+    }
+
+    public function testGetHeaderValidMain()
+    {
+        $pos = new PositionHeader();
+        $pos->setLine(0);
+
+        $header = new Header();
+        $header->setGlobal(true);
+        $header->setPosition($pos);
+
+        $headerLine = ['lorem', 'ipsum', 'dolor'];
+
+        $obj = new ArrayData();
+        $obj->setData(array_merge([$headerLine] , $this->genAlleatoryBlock(), $this->genAlleatoryBlock()));
+
+        $this->tester->assertEquals($headerLine, $obj->getHeader($header));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetHeaderInvalidBlock()
+    {
+        $header = new Header();
+        $header->setGlobal(false);
+
+        $block = new Block();
+        $block->setSize(4);
+
+        $obj = new ArrayData();
+        $obj->setData(array_merge($this->genAlleatoryBlock(), $this->genAlleatoryBlock()));
+        $obj->createChunks($block);
+
+        $obj->getHeader($header, 0);
+    }
+
+    public function testGetHeaderValidBlock()
+    {
+        $pos = new PositionHeader();
+        $pos->setLine(0);
+
+        $header = new Header();
+        $header->setGlobal(false);
+        $header->setPosition($pos);
+
+        $block = new Block();
+        $block->setSize(4);
+
+        $block1 = $this->genAlleatoryBlock();
+        $block2 = $this->genAlleatoryBlock();
+
+        $obj = new ArrayData();
+        $obj->setData(array_merge($block1, $block2));
+        $obj->createChunks($block);
+
+        $this->tester->assertEquals($block1[0], $obj->getHeader($header, 0));
     }
 }

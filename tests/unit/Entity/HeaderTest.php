@@ -76,12 +76,17 @@ class HeaderTest extends \Codeception\Test\Unit
         $obj->setGlobal(true);
         $this->tester->assertFalse($obj->validate());
 
-        // VALID
+        // INVALID
         $obj->setGlobal(false);
-        $this->tester->assertTrue($obj->validate());
+        $this->tester->assertFalse($obj->validate());
 
         // VALID
         $obj->setGlobal(true);
+        $obj->setPosition(new PositionHeader());
+        $this->tester->assertTrue($obj->validate());
+
+        // VALID
+        $obj->setGlobal(false);
         $obj->setPosition(new PositionHeader());
         $this->tester->assertTrue($obj->validate());
     }
