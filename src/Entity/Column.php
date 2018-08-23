@@ -107,11 +107,11 @@ class Column extends BaseEntity
         
         if ($this->getType() == ColumnType::Multiple()->getValue())
         {
-            if ($this->getPosition()->getSearch() && $this->getPosition()->getSearchColumn() && $this->getPosition()->getHeaderMatch())
+            if ($this->getPosition()->getSearch() && $this->getPosition()->getSearchColumn() >= 0 && $this->getPosition()->getHeaderMatch())
             {
                 return true;
             } 
-            if ($this->getPosition()->getSearch() && $this->getPosition()->getSearchColumn() && $this->getPosition()->getRange())
+            if ($this->getPosition()->getSearch() && $this->getPosition()->getSearchColumn() >= 0 && $this->getPosition()->getRange())
             {
                 return true;
             }
