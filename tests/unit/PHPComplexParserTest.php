@@ -56,6 +56,16 @@ class PHPComplexParserTest extends \Codeception\Test\Unit
         return $settings;
     }
 
+    private function genAlleatoryBlock()
+    {
+        return [
+            ['START_' . uniqid()],
+            ['Stock', rand(100,999),rand(100,999),rand(100,999)],
+            ['Sales', rand(100,999),rand(100,999),rand(100,999)],
+            ['END_' . uniqid()]
+        ];
+    }
+
     /**
      * @expectedException \Exception
      */
@@ -78,5 +88,28 @@ class PHPComplexParserTest extends \Codeception\Test\Unit
         $obj = new PHPComplexParser();
 
         $this->tester->assertTrue($obj->loadSettings($this->genSettings()));
+    }
+
+    public function testLoadArray()
+    {
+        $data = [
+            $this->genAlleatoryBlock(),
+            $this->genAlleatoryBlock(),
+            $this->genAlleatoryBlock(),
+            $this->genAlleatoryBlock()
+        ];
+
+        $obj = new PHPComplexParser();
+        $this->tester->assertTrue($obj->loadArray($data));
+    }
+
+    public function testLoadCsvStr()
+    {
+        $str = 'lorem,ipsum,dolor,sit' . chr(10);
+        $str.= '1,2,3,4' . chr(10);
+        $str.= '5,6,7,8' . chr(10);
+
+        $obj = new PHPComplexParser();
+        $this->tester->assertTrue($obj->loadCsvStr($str));
     }
 }

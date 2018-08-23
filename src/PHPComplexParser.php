@@ -18,6 +18,12 @@ class PHPComplexParser
      */
     protected $Settings;
 
+    /**
+     * Data
+     * @var ArrayData
+     */
+    protected $Data;
+
     public function loadSettingsJson(string $json)
     {
         $this->Settings = new Settings();
@@ -31,5 +37,19 @@ class PHPComplexParser
         $this->Settings = $obj;
 
         return true;
+    }
+
+    public function loadArray(array $data)
+    {
+        $this->Data = new ArrayData();
+        return $this->Data->setData($data);
+    }
+
+    public function loadCsvStr(string $str)
+    {
+        $csv = new \Jabran\CSV_Parser();
+        $csv->fromString($str);
+        
+        return $this->loadArray($csv->parse(false));
     }
 }
