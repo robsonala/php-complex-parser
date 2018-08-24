@@ -81,19 +81,26 @@ class PositionColumnsTest extends \Codeception\Test\Unit
     {
         $num = rand(100,499);
         $num2 = rand(500,999);
-        $this->objEntity->setRange($num, $num2);
 
+        // INT
+        $this->objEntity->setRange($num, $num2);
         $this->tester->assertEquals([$num, $num2], $this->objEntity->getRange());
 
         $this->objEntity->setRange($num, null);
+        $this->tester->assertEquals([$num, null], $this->objEntity->getRange());
 
+        // ARRAY
+        $this->objEntity->setRange([$num, $num2]);
+        $this->tester->assertEquals([$num, $num2], $this->objEntity->getRange());
+
+        $this->objEntity->setRange([$num, null]);
         $this->tester->assertEquals([$num, null], $this->objEntity->getRange());
     }
     
     /**
      * @expectedException \Exception
      */
-    public function testRangeInvalid()
+    public function testRangeInvalidInt()
     {
         try {
             $this->objEntity->setRange(null, null);
@@ -103,6 +110,14 @@ class PositionColumnsTest extends \Codeception\Test\Unit
         } catch (\Error $e) {
             throw new \Exception();
         }
+    }
+    
+    /**
+     * @expectedException \Exception
+     */
+    public function testRangeInvalidArray()
+    {
+        $this->objEntity->setRange([rand(0,9)]);
     }
 
     public function testValidate()

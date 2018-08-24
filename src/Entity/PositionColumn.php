@@ -88,9 +88,21 @@ class PositionColumn extends Position
         return $this->HeaderMatch;
     }
 
-    public function setRange(int $start, int $end = null)
+    public function setRange($mixed, ?int $end = null)
     {
-        $this->Range = [$start, $end];
+        if (is_int($mixed))
+        {
+            $this->Range = [$mixed, $end];
+        } else if (is_array($mixed)) {
+            if (count($mixed) != 2)
+            {
+                throw new \Exception('Range list must have 2 positions');
+            }
+
+            $this->Range = $mixed;
+        } else {
+            throw new \TypeError('Invalid range params');
+        }
     }
 
     public function getRange()
