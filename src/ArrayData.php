@@ -90,10 +90,6 @@ class ArrayData
 
     public function getHeader(Header $header, ?int $blockIndexPosition = null)
     {
-        if (!isset($this->Data))
-        {
-            throw new \Exception('Data has not been set');
-        }
         if (!$header->validate())
         {
             throw new \Exception('Invalid Header entity');

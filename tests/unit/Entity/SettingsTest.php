@@ -26,6 +26,14 @@ class SettingsTest extends \Codeception\Test\Unit
     {
     }
 
+    protected function genValidGeneral()
+    {
+        $obj = new General();
+        $obj->setIgnoreLinesBegin(rand(1,10));
+
+        return $obj;
+    }
+
     protected function genValidHeader()
     {
         $pos = new PositionHeader();
@@ -62,6 +70,14 @@ class SettingsTest extends \Codeception\Test\Unit
     public function testClassExtension()
     {
         $this->tester->assertInstanceOf(BaseEntity::class, new Settings);
+    }
+
+    public function testSetGeneralValid()
+    {   
+        $header = $this->genValidGeneral();
+        $this->settings->setGeneral($header);
+
+        $this->tester->assertEquals($header, $this->settings->getGeneral());
     }
 
     /**
@@ -130,6 +146,7 @@ class SettingsTest extends \Codeception\Test\Unit
         $cols = new Columns();
         $cols->add($this->genValidColumn());
         
+        $obj->setGeneral($this->genValidGeneral());
         $obj->setHeader($this->genValidHeader());
         $obj->setBlock($this->genValidBlock());
         $obj->setColumns($cols);

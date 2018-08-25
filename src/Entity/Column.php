@@ -115,6 +115,10 @@ class Column extends BaseEntity
             {
                 return true;
             }
+            if ($this->getPosition()->getLine() && $this->getPosition()->getRange())
+            {
+                return true;
+            }
 
             return false;
         }

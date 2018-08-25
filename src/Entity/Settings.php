@@ -7,6 +7,13 @@ use PHPComplexParser\Component\JsonHelper;
 class Settings extends BaseEntity
 {
     /**
+     * General Settings
+     * 
+     * @var General
+     */ 
+    protected $General;
+    
+    /**
      * Header Settings
      * 
      * @var Header
@@ -26,6 +33,21 @@ class Settings extends BaseEntity
      * @var Columns
      */ 
     protected $Columns;
+
+    public function setGeneral(General $obj)
+    {
+        if (!$obj->validate())
+        {
+            throw new \Exception('Invalid General');
+        }
+
+        $this->General = $obj;
+    }
+
+    public function getGeneral()
+    {
+        return $this->General;
+    }
 
     public function setHeader(Header $obj)
     {
@@ -104,6 +126,10 @@ class Settings extends BaseEntity
 
         $outArray = new \stdClass();
 
+        if (isset($this->General))
+        {
+            $outArray->General = json_decode($this->getGeneral()->getJson(true));
+        }
         if (isset($this->Header))
         {
             $outArray->Header = json_decode($this->getHeader()->getJson(true));
@@ -132,6 +158,10 @@ class Settings extends BaseEntity
             throw new \Exception('Invalid JSON');
         }
 
+        if (isset($obj->General))
+        {
+            $this->General = JsonHelper::jsonToObject(json_encode($obj->General), General::class);
+        }
         if (isset($obj->Header))
         {
             $this->Header = JsonHelper::jsonToObject(json_encode($obj->Header), Header::class);
