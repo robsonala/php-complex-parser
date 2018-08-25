@@ -46,6 +46,8 @@ class PositionColumn extends Position
         }
         
         $this->Column = $value;
+
+        return $this;
     }
 
     public function getColumn()
@@ -56,6 +58,8 @@ class PositionColumn extends Position
     public function setSearch(string $value)
     {
         $this->Search = $value;
+
+        return $this;
     }
 
     public function getSearch()
@@ -71,6 +75,8 @@ class PositionColumn extends Position
         }
         
         $this->SearchColumn = $value;
+
+        return $this;
     }
 
     public function getSearchColumn()
@@ -81,6 +87,8 @@ class PositionColumn extends Position
     public function setHeaderMatch(string $value)
     {
         $this->HeaderMatch = $value;
+
+        return $this;
     }
 
     public function getHeaderMatch()
@@ -103,6 +111,8 @@ class PositionColumn extends Position
         } else {
             throw new \TypeError('Invalid range params');
         }
+
+        return $this;
     }
 
     public function getRange()

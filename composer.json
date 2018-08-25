@@ -1,5 +1,6 @@
 {
     "name": "robsonala/php-complex-parser",
+    "version" : "1.0.1",
     "description": "PHP Complex CSV parser",
     "minimum-stability": "stable",
     "authors": [

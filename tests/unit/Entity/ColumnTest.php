@@ -88,6 +88,22 @@ class ColumnTest extends \Codeception\Test\Unit
         }
     }
 
+    public function testCascadingCall()
+    {
+        $obj = new Column();
+
+        $this->tester->assertEquals($obj, $obj
+            ->setType(1)
+            ->setName('lorem')
+            ->setKeepHeader(true)
+            ->setPosition(new PositionColumn()));
+
+        $this->tester->assertEquals(1, $obj->getType());
+        $this->tester->assertEquals('lorem', $obj->getName());
+        $this->tester->assertTrue($obj->isKeepHeader());
+        $this->tester->assertEquals(new PositionColumn(), $obj->getPosition());
+    }
+
     public function testValidate()
     {
         // INVALID

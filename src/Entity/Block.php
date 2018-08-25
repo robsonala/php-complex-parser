@@ -43,6 +43,8 @@ class Block extends BaseEntity
     public function setTranspose(bool $value)
     {
         $this->Transpose = $value;
+
+        return $this;
     }
 
     public function isTranspose()
@@ -58,6 +60,8 @@ class Block extends BaseEntity
         }
 
         $this->Size = $value;
+
+        return $this;
     }
 
     public function getSize()
@@ -73,6 +77,8 @@ class Block extends BaseEntity
         }
 
         $this->Break = $value;
+
+        return $this;
     }
 
     public function getBreak()
@@ -83,6 +89,8 @@ class Block extends BaseEntity
     public function setBreakSearch(string $value)
     {
         $this->BreakSearch = $value;
+
+        return $this;
     }
 
     public function getBreakSearch()
@@ -98,6 +106,8 @@ class Block extends BaseEntity
         }
 
         $this->BreakSearchColumn = $value;
+
+        return $this;
     }
 
     public function getBreakSearchColumn()

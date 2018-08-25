@@ -45,6 +45,13 @@ class GeneralTest extends \Codeception\Test\Unit
         $this->tester->assertEquals($num, $this->objEntity->getIgnoreLinesBegin());
     }
 
+    public function testCascadingCall()
+    {
+        $obj = new General();
+
+        $this->tester->assertEquals($obj, $obj->setIgnoreLinesBegin(1));
+    }
+
     public function testValidate()
     {
         $obj = new General();

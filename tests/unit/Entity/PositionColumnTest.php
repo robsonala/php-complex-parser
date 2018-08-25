@@ -120,6 +120,24 @@ class PositionColumnsTest extends \Codeception\Test\Unit
         $this->objEntity->setRange([rand(0,9)]);
     }
 
+    public function testCascadingCall()
+    {
+        $obj = new PositionColumn();
+
+        $this->tester->assertEquals($obj, $obj
+            ->setColumn(1)
+            ->setSearch('lorem')
+            ->setSearchColumn(2)
+            ->setHeaderMatch('ipsum')
+            ->setRange(3,4));
+
+            $this->tester->assertEquals(1, $obj->getColumn());
+            $this->tester->assertEquals('lorem', $obj->getSearch());
+            $this->tester->assertEquals(2, $obj->getSearchColumn());
+            $this->tester->assertEquals('ipsum', $obj->getHeaderMatch());
+            $this->tester->assertEquals([3,4], $obj->getRange());
+    }
+
     public function testValidate()
     {
         // INVALID

@@ -46,6 +46,15 @@ class PositionTest extends \Codeception\Test\Unit
         $this->objEntity->setLine(-1);
     }
 
+    public function testCascadingCall()
+    {
+        $obj = new Position();
+
+        $this->tester->assertEquals($obj, $obj->setLine(1));
+
+        $this->tester->assertEquals(1, $obj->getLine());
+    }
+
     public function testValidate()
     {
         $obj = new Position();

@@ -65,6 +65,18 @@ class HeaderTest extends \Codeception\Test\Unit
         }
     }
 
+    public function testCascadingCall()
+    {
+        $obj = new Header();
+
+        $this->tester->assertEquals($obj, $obj
+            ->setGlobal(true)
+            ->setPosition(new PositionHeader()));
+
+        $this->tester->assertTrue($obj->isGlobal());
+        $this->tester->assertEquals(new PositionHeader(), $obj->getPosition());
+    }
+
     public function testValidate()
     {
         $obj = new Header();

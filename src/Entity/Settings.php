@@ -42,6 +42,8 @@ class Settings extends BaseEntity
         }
 
         $this->General = $obj;
+
+        return $this;
     }
 
     public function getGeneral()
@@ -57,6 +59,8 @@ class Settings extends BaseEntity
         }
 
         $this->Header = $obj;
+
+        return $this;
     }
 
     public function getHeader()
@@ -72,6 +76,8 @@ class Settings extends BaseEntity
         }
 
         $this->Block = $obj;
+
+        return $this;
     }
 
     public function getBlock()
@@ -87,6 +93,8 @@ class Settings extends BaseEntity
         }
 
         $this->Columns = $list;
+
+        return $this;
     }
 
     public function getColumns()

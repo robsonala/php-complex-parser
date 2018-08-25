@@ -94,6 +94,24 @@ class BlockTest extends \Codeception\Test\Unit
         $this->objEntity->setBreakSearchColumn(-1);
     }
 
+    public function testCascadingCall()
+    {
+        $obj = new Block();
+
+        $this->tester->assertEquals($obj, $obj
+            ->setTranspose(true)
+            ->setSize(1)
+            ->setBreak(2)
+            ->setBreakSearch('lorem')
+            ->setBreakSearchColumn(3));
+
+        $this->tester->assertTrue($obj->isTranspose());
+        $this->tester->assertEquals(1, $obj->getSize());
+        $this->tester->assertEquals(2, $obj->getBreak());
+        $this->tester->assertEquals('lorem', $obj->getBreakSearch());
+        $this->tester->assertEquals(3, $obj->getBreakSearchColumn());
+    }
+
     public function testValidate()
     {
         // INVALID

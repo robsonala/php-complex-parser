@@ -18,6 +18,8 @@ class General extends BaseEntity
         }
 
         $this->IgnoreLinesBegin = $value;
+
+        return $this;
     }
 
     public function getIgnoreLinesBegin()

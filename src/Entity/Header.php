@@ -22,6 +22,8 @@ class Header extends BaseEntity
     public function setGlobal(bool $value)
     {
         $this->Global = $value;
+
+        return $this;
     }
 
     public function isGlobal()
@@ -42,6 +44,8 @@ class Header extends BaseEntity
         }
 
         $this->Position = $obj;
+
+        return $this;
     }
 
     public function getPosition()

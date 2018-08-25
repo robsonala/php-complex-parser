@@ -41,6 +41,8 @@ class Column extends BaseEntity
         }
 
         $this->Type = $value;
+
+        return $this;
     }
 
     public function getType()
@@ -51,6 +53,8 @@ class Column extends BaseEntity
     public function setName(string $value)
     {
         $this->Name = $value;
+
+        return $this;
     }
 
     public function getName()
@@ -61,6 +65,8 @@ class Column extends BaseEntity
     public function setKeepHeader(bool $value)
     {
         $this->KeepHeader = $value;
+
+        return $this;
     }
 
     public function isKeepHeader()
@@ -81,6 +87,8 @@ class Column extends BaseEntity
         }
         
         $this->Position = $obj;
+
+        return $this;
     }
 
     public function getPosition()

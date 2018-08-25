@@ -18,6 +18,8 @@ class Position extends BaseEntity
         }
         
         $this->Line = $value;
+
+        return $this;
     }
 
     public function getLine()
