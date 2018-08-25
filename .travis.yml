@@ -9,8 +9,8 @@ php:
 sudo: false
 
 install:
-  - travis_retry composer self-update && composer --version
-  - travis_retry composer update --dev --prefer-dist --no-interaction
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
 
 script:
   - composer validate --strict

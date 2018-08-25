@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "codeception/codeception": "*",
-        "phpunit/phpunit": "7.0"
+        "phpunit/phpunit": "*"
     },
     "autoload": {
         "psr-4": {
