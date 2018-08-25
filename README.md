@@ -2,7 +2,11 @@
 
 Parse complex CSV to JSON
 
+[![Build Status](https://travis-ci.org/robsonala/php-complex-parser.svg?branch=master)](https://travis-ci.org/robsonala/php-complex-parser)
+
 ***
+
+## 
 
 ## Simple usage
 
