@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.2",
         "jabranr/csv-parser": "2.*",
         "myclabs/php-enum": "*",
         "symfony/property-access": "*",
