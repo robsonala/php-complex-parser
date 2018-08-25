@@ -12,6 +12,9 @@ install:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
+before_script:
+  - vendor/bin/codecept bootstrap
+  - vendor/bin/codecept build
+
 script:
-  - composer validate --strict
   - vendor/bin/codecept run
