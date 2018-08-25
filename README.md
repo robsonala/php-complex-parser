@@ -1,12 +1,9 @@
 # PHP Complex CSV parser
-
 Parse complex CSV to JSON
 
 [![Build Status](https://travis-ci.org/robsonala/php-complex-parser.svg?branch=master)](https://travis-ci.org/robsonala/php-complex-parser)
 
 ***
-
-## 
 
 ## Simple usage
 
@@ -101,3 +98,64 @@ array(
 )
 */
 ```
+
+***
+## Settings Options
+
+### General
+| Name  | Description | Type |
+| --- | --- | --- |
+| IgnoreLinesBegin  | Number of lines to be ignored at begin of the file  | Integer |
+
+### Header
+| Name  | Description | Type |
+| --- | --- | --- |
+| Global  | Where header line is located (TRUE = Global / FALSE = Block)  | Boolean |
+| Position  | Position of the header line  | PositionHeader |
+### PositionHeader
+| Name  | Description | Type |
+| --- | --- | --- |
+| Line | Line where header is placed | Integer |
+
+### Block
+| Name  | Description | Type |
+| --- | --- | --- |
+| Transpose  | Transpose the block before process it  | Boolean |
+| Size  | If the blocks are fixed size you can split it by the number of lines  | Integer |
+| Break  | If it's not fixed size you can select the type of block delimiter  | Enum BlockBreak |
+| BreakSearch | Value to be find in specific BlockBreaks | String/Regex |
+| BreakSearchColumn | Column position for BlockSearch | Integer |
+
+### Column
+| Name  | Description | Type |
+| --- | --- | --- |
+| Type  | Type of parser  | Enum ColumnType |
+| Name | Name to be returned on out data | String |
+| KeepHeader | Show the original header on out information | Boolean|
+| Position | Position where the data will be extracted | PositionColumn |
+
+### PositionColumn
+| Name  | Description | Type |
+| --- | --- | --- |
+| Line | Line where data will be extracted | Integer |
+| Column | Column where the data will be extracted (for Single extractor) | Integer |
+| Search | Information to be search and select the line (for Multiple extractor) | String/Search |
+| SearchColumn | Column position for 'Search' | Integer |
+| HeaderMatch | Using header to match the columns (for Multiple extractor) | String/Search |
+| Range | Select data from a list of columns (for Multiple extractor) | Array(integer, integer/null) |
+
+***
+## Enumerators
+
+### BlockBreak
+| ID | Name | Description |
+| --- | --- | --- |
+| 1 | EmptyLine | Break block each empty line |
+| 2 | MatchLastLine | Break block every time the extractor find a specific last line |
+| 2 | MatchFirstLine | Break block every time the extractor find a specific first line |
+
+### ColumnType
+| ID | Name | Description |
+| --- | --- | --- |
+| 1 | Single | Search just single information from column/line |
+| 1 | Multiple | Search multiple information from line |
