@@ -86,3 +86,70 @@ $parser->loadSettingsJson($settings);
 $out = $parser->processData();
 
 echo '<pre>' . print_r($out , true) . chr(10);
+
+/*
+RESULT:
+
+Array
+(
+    [0] => Array
+        (
+            [partcode] => CN1339361
+            [sales] => Array
+                (
+                    [0] => 1
+                    [1] => 7
+                    [2] => 1
+                    [3] => 2
+                    [4] => 4
+                )
+
+            [stock] => Array
+                (
+                    [0] => 1
+                    [1] => 7
+                    [2] => 1
+                    [3] => 2
+                )
+
+            [fcast] => Array
+                (
+                    [0] => 0
+                    [1] => 3
+                    [2] => 3
+                )
+
+        )
+
+    [1] => Array
+        (
+            [partcode] => CN1399611
+            [sales] => Array
+                (
+                    [0] => 1
+                    [1] => 1
+                    [2] => 2
+                    [3] => 2
+                    [4] => 4
+                )
+
+            [stock] => Array
+                (
+                    [0] => 1
+                    [1] => 1
+                    [2] => 2
+                    [3] => 2
+                )
+
+            [fcast] => Array
+                (
+                    [0] => 2
+                    [1] => 3
+                    [2] => 1
+                )
+
+        )
+
+)
+
+*/

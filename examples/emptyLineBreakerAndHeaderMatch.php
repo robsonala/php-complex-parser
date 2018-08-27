@@ -65,3 +65,51 @@ $parser->loadSettingsJson($settings);
 $out = $parser->processData();
 
 echo '<pre>' . print_r($out , true) . chr(10);
+
+/*
+RESULT:
+
+Array
+(
+    [0] => Array
+        (
+            [partcode] => CN1339361
+            [sales] => Array
+                (
+                    [current week] => 9
+                    [week +1] => 5
+                    [week +2] => 1
+                    [week +3] => 8
+                )
+
+        )
+
+    [1] => Array
+        (
+            [partcode] => CN1339987
+            [sales] => Array
+                (
+                    [current week] => 3
+                    [week +1] => 9
+                    [week +2] => 2
+                    [week +3] => 7
+                )
+
+        )
+
+    [2] => Array
+        (
+            [partcode] => CN922887
+            [sales] => Array
+                (
+                    [current week] => 2
+                    [week +1] => 4
+                    [week +2] => 1
+                    [week +3] => 5
+                )
+
+        )
+
+)
+
+*/

@@ -78,3 +78,63 @@ $parser->loadSettingsJson($settings);
 $out = $parser->processData();
 
 echo '<pre>' . print_r($out , true) . chr(10);
+
+/*
+RESULT:
+
+Array
+(
+    [0] => Array
+        (
+            [partcode] => CN1339361
+            [sales] => Array
+                (
+                    [Week 51 2017] => 1
+                    [Week 52 2017] => 5
+                    [Week 01 2018] => 6
+                    [Week 02 2018] => 9
+                    [Week 03 2018] => 1
+                )
+
+        )
+
+    [1] => Array
+        (
+            [partcode] => CN1339987
+            [sales] => Array
+                (
+                    [Week 51 2017] => 6
+                    [Week 52 2017] => 7
+                    [Week 01 2018] => 1
+                    [Week 02 2018] => 3
+                    [Week 03 2018] => 7
+                )
+
+            [forecast] => Array
+                (
+                    [Week 51 2017] => 5
+                    [Week 52 2017] => 0
+                    [Week 01 2018] => 2
+                    [Week 02 2018] => 2
+                    [Week 03 2018] => 4
+                )
+
+        )
+
+    [2] => Array
+        (
+            [partcode] => CN1339987
+            [sales] => Array
+                (
+                    [Week 51 2017] => 6
+                    [Week 52 2017] => 7
+                    [Week 01 2018] => 1
+                    [Week 02 2018] => 3
+                    [Week 03 2018] => 7
+                )
+
+        )
+
+)
+
+*/
