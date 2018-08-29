@@ -1,6 +1,6 @@
 {
     "name": "robsonala/php-complex-parser",
-    "version" : "1.0.1",
+    "version" : "1.1.0",
     "description": "PHP Complex CSV parser",
     "minimum-stability": "stable",
     "authors": [
@@ -11,11 +11,11 @@
     ],
     "config": {
         "platform": {
-            "php": "7.0"
+            "php": "7.1"
         }
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "jabranr/csv-parser": "*",
         "myclabs/php-enum": "*",
         "symfony/property-access": "*",
