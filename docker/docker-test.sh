@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Apply permission to execute
-# chmod +x docker-test.sh
-
 if [ "$1" == "" ]; then
     echo 'First parameter must be php docker image name'
     exit

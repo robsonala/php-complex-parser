@@ -7,8 +7,13 @@ use PHPComplexParser\Component\CustomObjectNormalizer;
 
 class JsonHelper
 {
-    public static function objectToJson(object $obj)
+    public static function objectToJson($obj)
     {
+        if (!is_object($obj))
+        {
+            throw new \TypeError('Invalid obj params');
+        }
+
         $serializer = new Serializer([new CustomObjectNormalizer()], [new JsonEncoder()]);
 
         return $serializer->serialize($obj, 'json');
