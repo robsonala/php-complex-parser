@@ -9,9 +9,14 @@
             "email": "robsonala@gmail.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.0"
+        }
+    },
     "require": {
-        "php": ">=7.2",
-        "jabranr/csv-parser": "2.*",
+        "php": ">=7.0",
+        "jabranr/csv-parser": "*",
         "myclabs/php-enum": "*",
         "symfony/property-access": "*",
         "symfony/serializer": "*"
